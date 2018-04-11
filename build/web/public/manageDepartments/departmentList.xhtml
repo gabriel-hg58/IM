@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p ="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough">
+
+    <title>IM - Departamentos</title>
+    <ui:include src="/public/includes/HeadIncludes.xhtml"/>
+    
+    <f:metadata>
+        <f:viewAction action="#{departmentManagedBean.loadDepartments()}"/>
+    </f:metadata>
+
+    <h:body>
+        <h:form>
+            <div class="innerPage">
+                <div>
+                    <ui:include src="/public/includes/navbar.xhtml"/>
+                </div>
+                <div class="center" style="font-family: Lobster">
+                    <h3>Lista de Departamentos</h3>
+                </div>
+                <div class="col-sm-10 center spaceTop">
+                    <h:inputText t:placeholder="Pesquisar" class="form-control" value="#{departmentManagedBean.filterDepartment}">
+                        <p:ajax update="tblDepartments" event="keyup" listener="#{departmentManagedBean.filterUsersByName()}"/>
+                    </h:inputText>
+                </div>
+                <div class="table-stl-01">
+                    <h:dataTable id="tblDepartments" styleClass="table table-bordered table-hover background-01" value="#{departmentManagedBean.listOfDepartments}" var="dep">
+                        <h:column>
+                            <f:facet name="header">Departamento</f:facet>
+                            <h:outputText value="#{dep.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Email</f:facet>
+                            <h:outputText value="#{dep.email}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Quantidade de Usuarios</f:facet>
+                            <h:outputText value="#{dep}"/>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>

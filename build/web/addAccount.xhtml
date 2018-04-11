@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p ="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:include src="/public/includes/HeadIncludes.xhtml"/>
+
+    <f:metadata>
+        <f:viewAction action="#{accountManagedBean.loadDepartments()}"/>
+    </f:metadata>
+
+    <title>IM - Cadastro</title>
+    <h:body>
+        <h:form>
+            <div class="innerPage">
+                <div class="form-group spaceTop">
+                    <h:outputLabel for="inputUser" class="col-sm-2 control-label userAddAdjustment" value="Usuario"/>
+                    <div class="col-sm-10 center">
+                        <h:inputText value="#{accountManagedBean.actualUserAccount.user}" class="form-control" id="inputUser" required="true" t:placeholder="nome.sobrenome"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="inputPassword" class="col-sm-2 control-label userAddAdjustment" value="Senha"/>
+                    <div class="col-sm-10 center">
+                        <h:inputText value="#{accountManagedBean.password}" class="form-control" id="InputPassword" required="true" t:placeholder="Senha" t:type="password"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="inputConfirmPassword" class="col-sm-2 control-label userAddAdjustment" value="Confirme a senha"/>
+                    <div class="col-sm-10 center">
+                        <h:inputText value="#{accountManagedBean.confirmPassword}" class="form-control" id="InputConfirmPassword" required="true" t:placeholder="Senha" t:type="password"/>
+                    </div>
+                </div>
+                <div class="spaceTop"/>
+                <div class="spacer"/>
+                <div class="space-bottom-2"/>
+                <div class="form-group">
+                    <h:outputLabel for="inputName" class="col-sm-2 control-label userAddAdjustment" value="Nome completo"/>
+                    <div class="col-sm-10 center">
+                        <h:inputText value="#{accountManagedBean.actualUserAccount.name}" class="form-control" id="inputName" required="true" t:placeholder="Nome completo"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="inputEmail" class="col-sm-2 control-label userAddAdjustment" value="Email pessoal"/>
+                    <div class="col-sm-10 center">
+                        <h:inputText value="#{accountManagedBean.actualUserAccount.email}" class="form-control" id="inputEmail" required="true" t:placeholder="exemplo@gmail.com" t:type="email"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <h:outputLabel for="inputPhone" class="col-sm-2 control-label userAddAdjustment" value="Telefone pessoal"/>
+                    <div class="col-sm-10 center">
+                        <h:inputText value="#{accountManagedBean.actualUserAccount.phone}" class="form-control" id="inputPhone" required="true" t:placeholder="(99) 99123-4567" t:type="number"/>
+                    </div>
+                </div>
+                <div class="form-group space-bottom-1">
+                    <h:outputLabel for="inputDepartment" class="col-sm-2 control-label userAddAdjustment" value="Departamento"/>
+                    <h:selectOneMenu class="form-control large-pg-1 center" value="#{accountManagedBean.actualUserAccount.departmentIdDepartment}">
+                        <f:selectItems value="#{accountManagedBean.listOfDepartments}" var="dep" itemLabel="#{dep.name}" itemValue="#{dep}"/>
+                        <f:converter converterId="ConvertDepartments"/>
+                    </h:selectOneMenu>
+                </div>
+                <div class="spaceTop">
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10 center">
+                            <h:commandButton type="submit" value="Cadastrar" onfocus="true" class="btn btn-default" action="#{accountManagedBean.saveAccount()}"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
