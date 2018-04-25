@@ -35,7 +35,6 @@ import static org.eclipse.persistence.internal.core.helper.CoreClassConstants.CA
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
-import org.primefaces.model.UploadedFile;
 
 @ManagedBean
 @SessionScoped
@@ -173,7 +172,7 @@ public class DocumentManagedBean {
         docName = controlDocument.findDocument(id).getTypeIdType().getName();
         docName = docName + " - " + controlDocument.findDocument(id).getNumber() + " de "
                 + controlDocument.findDocument(id).getYear();
-        docName = docName + " por " + controlDocument.findDocument(id).getUserSender().getName();
+        docName = docName + " por " + controlDocument.findDocument(id).getUserSender().getName() + ".docx";
         return docName;
     }
 

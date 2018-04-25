@@ -8,7 +8,7 @@ import model.Department;
 import model.Document;
 import model.Help;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-01-26T10:15:29")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2018-04-24T22:06:33")
 @StaticMetamodel(UserAccount.class)
 public class UserAccount_ { 
 
