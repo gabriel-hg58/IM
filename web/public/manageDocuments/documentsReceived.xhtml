@@ -6,10 +6,10 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:t="http://xmlns.jcp.org/jsf/passthrough">
-    
+
     <title>IM - Meus Documentos</title>
     <ui:include src="/public/includes/HeadIncludes.xhtml"/>
-    
+
     <f:metadata>
         <f:viewAction action="#{documentManagedBean.findDocumentReceived()}"/>
     </f:metadata>
@@ -52,7 +52,9 @@
                         <h:column>
                             <f:facet name="header">Ação</f:facet>
                             <h:commandButton class="btn-action" image="../../resources/images/search_icon.png"/>
-                            <h:commandButton class="btn-action" image="../../resources/images/download_icon.png"/>
+                            <h:commandButton class="btn-action" image="../../resources/images/download_icon.png">
+                                <p:fileDownload value="#{documentManagedBean.downloadDocument(doc.idDocument)}" />
+                            </h:commandButton>
                         </h:column>
                     </h:dataTable>
                 </div>

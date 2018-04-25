@@ -4,12 +4,17 @@ import controller.DepartmentJpaController;
 import controller.DocumentJpaController;
 import controller.TypeJpaController;
 import controller.UserAccountJpaController;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import static java.util.Arrays.stream;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -24,9 +29,12 @@ import model.Department;
 import model.Document;
 import model.Type;
 import model.UserAccount;
+import static org.apache.jasper.tagplugins.jstl.core.Out.output;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 import static org.eclipse.persistence.internal.core.helper.CoreClassConstants.CALENDAR;
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
 @ManagedBean
@@ -52,6 +60,7 @@ public class DocumentManagedBean {
     //Auxiliary
     private String fileName;
     private int number;
+    StreamedContent file;
 
     public DocumentManagedBean() {
     }
@@ -99,13 +108,11 @@ public class DocumentManagedBean {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public void DownloadDocument() throws IOException {
-                
-        try (FileOutputStream fos = new FileOutputStream("C:/")) {
-            fos.write(actualDocument.getDocument());
-            fos.close();
-        } catch (Exception e) {
-        }
+    public StreamedContent downloadDocument(int id) {
+        byte[] byteDoc = controlDocument.findDocument(id).getDocument();
+        InputStream input = new ByteArrayInputStream(byteDoc);
+        file = new DefaultStreamedContent(input, "document/docx", generateDocName(id));
+        return file;
     }
 
     public void saveDocument() throws ParseException {
@@ -159,6 +166,15 @@ public class DocumentManagedBean {
                 .setParameter("user", actualUserAccount.getUser())
                 .getResultList();
         listOfDocumentsReceived = new ArrayList<>(doc);
+    }
+    
+    public String generateDocName(int id){
+        String docName;
+        docName = controlDocument.findDocument(id).getTypeIdType().getName();
+        docName = docName + " - " + controlDocument.findDocument(id).getNumber() + " de "
+                + controlDocument.findDocument(id).getYear();
+        docName = docName + " por " + controlDocument.findDocument(id).getUserSender().getName();
+        return docName;
     }
 
     //  --------------------  Administrator Metods  --------------------

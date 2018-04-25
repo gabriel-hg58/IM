@@ -11,9 +11,10 @@
     <ui:include src="/public/includes/HeadIncludes.xhtml"/>
 
     <f:metadata>
+        <f:viewAction action="#{documentManagedBean.clean()}"/>
         <f:viewAction action="#{documentManagedBean.loadTypes()}"/>
         <f:viewAction action="#{documentManagedBean.loadDepartments()}"/>
-        <f:viewAction action="#{documentManagedBean.clean()}"/>
+        <f:viewAction action="#{documentManagedBean.loadUsers()}"/>
     </f:metadata>
 
     <body>
@@ -61,7 +62,7 @@
                         <h:form>
                             <h:outputText id="uploadedFile" value="#{documentManagedBean.fileName}"/>
                             <p:fileUpload fileUploadListener="#{documentManagedBean.handleFileUpload}" mode="advanced"
-                                          update="uploadedFile" auto="false" sizeLimit="100000" allowTypes="/(\.|\/)(docx|doc|pdf)$/" 
+                                          update="uploadedFile" auto="false" sizeLimit="10000000000000" allowTypes="/(\.|\/)(docx|doc|pdf)$/" 
                                           uploadLabel="Confirmar" cancelLabel="Cancelar" label="Escolher"/>
                         </h:form>
                     </div>
