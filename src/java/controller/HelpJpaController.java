@@ -19,7 +19,7 @@ import model.UserAccount;
 
 /**
  *
- * @author gabri
+ * @author Garcia
  */
 public class HelpJpaController implements Serializable {
 

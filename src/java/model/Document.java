@@ -23,6 +23,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ *
+ * @author Garcia
+ */
 @Entity
 @Table(name = "document")
 @XmlRootElement
@@ -32,7 +36,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Document.findByNumber", query = "SELECT d FROM Document d WHERE d.number = :number"),
     @NamedQuery(name = "Document.findByYear", query = "SELECT d FROM Document d WHERE d.year = :year"),
     @NamedQuery(name = "Document.findByPublicationDate", query = "SELECT d FROM Document d WHERE d.publicationDate = :publicationDate"),
-    @NamedQuery(name = "Document.findBySituation", query = "SELECT d FROM Document d WHERE d.situation = :situation")})
+    @NamedQuery(name = "Document.findBySituation", query = "SELECT d FROM Document d WHERE d.situation = :situation"),
+    @NamedQuery(name = "Document.findByDocExtension", query = "SELECT d FROM Document d WHERE d.docExtension = :docExtension")})
 public class Document implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,6 +63,9 @@ public class Document implements Serializable {
     @Lob
     @Column(name = "document")
     private byte[] document;
+    @Basic(optional = false)
+    @Column(name = "doc_extension")
+    private String docExtension;
     @Lob
     @Column(name = "denial_explanation")
     private byte[] denialExplanation;
@@ -81,13 +89,14 @@ public class Document implements Serializable {
         this.idDocument = idDocument;
     }
 
-    public Document(Integer idDocument, int number, String year, Date publicationDate, int situation, byte[] document) {
+    public Document(Integer idDocument, int number, String year, Date publicationDate, int situation, byte[] document, String docExtension) {
         this.idDocument = idDocument;
         this.number = number;
         this.year = year;
         this.publicationDate = publicationDate;
         this.situation = situation;
         this.document = document;
+        this.docExtension = docExtension;
     }
 
     public Integer getIdDocument() {
@@ -136,6 +145,14 @@ public class Document implements Serializable {
 
     public void setDocument(byte[] document) {
         this.document = document;
+    }
+
+    public String getDocExtension() {
+        return docExtension;
+    }
+
+    public void setDocExtension(String docExtension) {
+        this.docExtension = docExtension;
     }
 
     public byte[] getDenialExplanation() {

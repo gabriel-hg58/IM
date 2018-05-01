@@ -53,8 +53,8 @@
                             <f:facet name="header">Ação</f:facet>
                             <h:commandButton class="btn-action" image="../../resources/images/search_icon.png"/>
                             <h:commandButton class="btn-action" image="../../resources/images/edit_icon.png"/>
-                            <h:commandButton class="btn-action" image="../../resources/images/download_icon.png" action="#{documentManagedBean.downloadDocument}">
-                                <f:setPropertyActionListener target="#{documentManagedBean.actualDocument}" value="doc"/>
+                           <h:commandButton class="btn-action" image="../../resources/images/download_icon.png">
+                                <p:fileDownload value="#{documentManagedBean.downloadDocument(doc.idDocument)}" />
                             </h:commandButton>
                         </h:column>
                     </h:dataTable>

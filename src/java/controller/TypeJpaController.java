@@ -21,7 +21,7 @@ import model.Type;
 
 /**
  *
- * @author gabri
+ * @author Garcia
  */
 public class TypeJpaController implements Serializable {
 

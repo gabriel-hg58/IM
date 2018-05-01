@@ -5,19 +5,10 @@ import controller.DocumentJpaController;
 import controller.TypeJpaController;
 import controller.UserAccountJpaController;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import static java.util.Arrays.stream;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import javax.faces.application.FacesMessage;
@@ -29,9 +20,6 @@ import model.Department;
 import model.Document;
 import model.Type;
 import model.UserAccount;
-import static org.apache.jasper.tagplugins.jstl.core.Out.output;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
-import static org.eclipse.persistence.internal.core.helper.CoreClassConstants.CALENDAR;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -105,13 +93,7 @@ public class DocumentManagedBean {
         actualDocument.setDocument(event.getFile().getContents());
         FacesMessage message = new FacesMessage("Sucesso!", event.getFile().getFileName() + " foi carregado.");
         FacesContext.getCurrentInstance().addMessage(null, message);
-    }
-
-    public StreamedContent downloadDocument(int id) {
-        byte[] byteDoc = controlDocument.findDocument(id).getDocument();
-        InputStream input = new ByteArrayInputStream(byteDoc);
-        file = new DefaultStreamedContent(input, "document/docx", generateDocName(id));
-        return file;
+        getFileExtension(event.getFile().getFileName());
     }
 
     public void saveDocument() throws ParseException {
@@ -133,7 +115,6 @@ public class DocumentManagedBean {
                 FacesMessage message = new FacesMessage("Sucesso!", "O oficio de número " + actualDocument.getNumber() + " foi enviado.");
                 FacesContext.getCurrentInstance().addMessage(null, message);
             } catch (Exception e) {
-                e.printStackTrace();
                 FacesMessage message = new FacesMessage("Não foi possivel enviar o documento.");
                 FacesContext.getCurrentInstance().addMessage(null, message);
             }
@@ -166,14 +147,33 @@ public class DocumentManagedBean {
                 .getResultList();
         listOfDocumentsReceived = new ArrayList<>(doc);
     }
-    
-    public String generateDocName(int id){
+
+    public String generateDocName(int id) {
         String docName;
         docName = controlDocument.findDocument(id).getTypeIdType().getName();
         docName = docName + " - " + controlDocument.findDocument(id).getNumber() + " de "
                 + controlDocument.findDocument(id).getYear();
-        docName = docName + " por " + controlDocument.findDocument(id).getUserSender().getName() + ".docx";
+        docName = docName + " por " + controlDocument.findDocument(id).getUserSender().getName()
+                + controlDocument.findDocument(id).getDocExtension();
         return docName;
+    }
+
+    public StreamedContent downloadDocument(int id) {
+        byte[] byteDoc = controlDocument.findDocument(id).getDocument();
+        InputStream input = new ByteArrayInputStream(byteDoc);
+
+        file = new DefaultStreamedContent(input, "document/docx", generateDocName(id));
+        return file;
+    }
+
+    public void getFileExtension(String nameFile) {
+        String extension = nameFile;
+        int pos = extension.indexOf(".");
+        
+        extension = extension.substring(pos, extension.length());
+        
+        actualDocument.setDocExtension(extension);
+        System.out.println("extensão do documento: " + extension);
     }
 
     //  --------------------  Administrator Metods  --------------------
