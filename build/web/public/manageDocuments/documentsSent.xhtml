@@ -20,7 +20,7 @@
                 <div>
                     <ui:include src="/public/includes/navbar.xhtml"/>
                 </div>
-                <div class="center" style="font-family: Lobster">
+                <div class="center spaceTop" style="font-family: Lobster">
                     <h3>Documentos Enviados</h3>
                 </div>
                 <div class="spaceTop table-stl-01">
@@ -51,11 +51,16 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Ação</f:facet>
-                            <h:commandButton class="btn-action" image="../../resources/images/search_icon.png"/>
-                            <h:commandButton class="btn-action" image="../../resources/images/edit_icon.png"/>
-                           <h:commandButton class="btn-action" image="../../resources/images/download_icon.png">
+                            <h:commandLink class="btn-action">
+                                <h:graphicImage class="resizedActionBtn" library="images" name="search_icon.png"/>
+                            </h:commandLink>
+                            <h:commandLink class="btn-action">
+                                <h:graphicImage class="resizedActionBtn" library="images" name="edit_icon.png"/>
+                            </h:commandLink>
+                            <h:commandLink class="btn-action">
+                                <h:graphicImage class="resizedActionBtn" library="images" name="download_icon.png"/>
                                 <p:fileDownload value="#{documentManagedBean.downloadDocument(doc.idDocument)}" />
-                            </h:commandButton>
+                            </h:commandLink>
                         </h:column>
                     </h:dataTable>
                 </div>

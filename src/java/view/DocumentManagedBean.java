@@ -46,7 +46,8 @@ public class DocumentManagedBean {
     UserAccountJpaController controlUser = new UserAccountJpaController(EmProvider.getInstance().getEntityManagerFactory());
     //Auxiliary
     private String fileName;
-    private int number;
+    private String filterType;
+    private Integer number;
     StreamedContent file;
 
     public DocumentManagedBean() {
@@ -79,6 +80,14 @@ public class DocumentManagedBean {
         listOfUsers = new ArrayList(controlUser.findUserAccountEntities());
     }
 
+    public void loadUsersByDepartment() {
+        listOfUsers.clear();
+        EntityManager em = EmProvider.getInstance().getEntityManagerFactory().createEntityManager();
+        List<UserAccount> users = em.createQuery("SELECT A FROM UserAccount a GROUP BY a.departmentIdDepartment", UserAccount.class)
+                .getResultList();
+        listOfUsers = new ArrayList<>(users);
+    }
+
     public void filterUserByDepartment() {
         listOfUsers.clear();
         EntityManager em = EmProvider.getInstance().getEntityManagerFactory().createEntityManager();
@@ -96,7 +105,7 @@ public class DocumentManagedBean {
         getFileExtension(event.getFile().getFileName());
     }
 
-    public void saveDocument() throws ParseException {
+    public String saveDocument() throws ParseException {
         if (number > 0) {
             UserAccount add = controlUser.findUserAccount(ManageSessions.getUserId());
 
@@ -112,16 +121,17 @@ public class DocumentManagedBean {
 
             try {
                 controlDocument.create(actualDocument);
-                FacesMessage message = new FacesMessage("Sucesso!", "O oficio de número " + actualDocument.getNumber() + " foi enviado.");
-                FacesContext.getCurrentInstance().addMessage(null, message);
+                return gotoDocumentsSent();
             } catch (Exception e) {
                 FacesMessage message = new FacesMessage("Não foi possivel enviar o documento.");
                 FacesContext.getCurrentInstance().addMessage(null, message);
+                e.printStackTrace();
             }
         } else {
             FacesMessage message = new FacesMessage("Advertencia!", "O número do documento deve ser maior que 0.");
             FacesContext.getCurrentInstance().addMessage(null, message);
         }
+        return "#";
     }
 
     public void loadDocuments() {
@@ -132,7 +142,7 @@ public class DocumentManagedBean {
         listOfDocumentsSent.clear();
         actualUserAccount = controlUser.findUserAccount(ManageSessions.getUserId());
         EntityManager em = EmProvider.getInstance().getEntityManagerFactory().createEntityManager();
-        List<Document> doc = em.createQuery("SELECT d FROM Document d WHERE d.userSender.user = :user ORDER BY d.publicationDate DESC", Document.class)
+        List<Document> doc = em.createQuery("SELECT d FROM Document d WHERE d.userSender.user = :user ORDER BY d.number DESC", Document.class)
                 .setParameter("user", actualUserAccount.getUser())
                 .getResultList();
         listOfDocumentsSent = new ArrayList<>(doc);
@@ -162,42 +172,64 @@ public class DocumentManagedBean {
         byte[] byteDoc = controlDocument.findDocument(id).getDocument();
         InputStream input = new ByteArrayInputStream(byteDoc);
 
-        file = new DefaultStreamedContent(input, "document/docx", generateDocName(id));
+        file = new DefaultStreamedContent(input, "document/pdf", generateDocName(id));
         return file;
     }
 
     public void getFileExtension(String nameFile) {
         String extension = nameFile;
         int pos = extension.indexOf(".");
-        
+
         extension = extension.substring(pos, extension.length());
-        
+
         actualDocument.setDocExtension(extension);
         System.out.println("extensão do documento: " + extension);
     }
+    
+    public void filterTypeByName() {
+        listOfTypes.clear();
+        EntityManager em = EmProvider.getInstance().getEntityManagerFactory().createEntityManager();
+        List<Type> type = em.createQuery("SELECT a FROM Type a WHERE a.name LIKE :filterType", Type.class)
+                .setParameter("filterType", "%" + filterType + "%")
+                .getResultList();
+        listOfTypes = new ArrayList<>(type);
+    }
 
     //  --------------------  Administrator Metods  --------------------
-    public String gotoLists() {
-        return "/private/admLists.xhtml?faces-redirect=true";
+    public String gotoAdmTypeList() {
+        return "/private/manageTypes/typeList.xhtml?faces-redirect=true";
+    }
+    
+    public String gotoAddTypeList() {
+        return "/private/manageTypes/addType.xhtml?faces-redirect=true";
+    }
+    
+    public String saveType(){
+        try {
+            controlType.create(actualDocumentType);
+            return gotoAdmTypeList();
+        } catch (Exception e) {
+            FacesMessage message = new FacesMessage("Erro!", "Não foi possivel salvar este tipo de documento.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+        return "#";
     }
 
-    public String gotoAdds() {
-        return "/private/admAdds.xhtml?faces-redirect=true";
-    }
-
-    public String saveDepartment() {
-        controlDepartment.create(actualDepartment);
-        return gotoLists();
-    }
-
-    public String saveDocumentType() {
-        controlType.create(actualDocumentType);
-        return gotoLists();
+    public String destryType(int id) {
+        try {
+            controlType.destroy(id);
+            return gotoAdmTypeList();
+        } catch (Exception e) {
+            FacesMessage message = new FacesMessage("Erro!", "Não foi possivel excluir este tipo de documento.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+            return "#";
+        }
     }
 
     //  ----------------------  Auxiliary Metods  ---------------------
     public void clean() {
         fileName = "";
+        number = null;
     }
 
     //  --------------------  Getters and Setters  --------------------
@@ -313,11 +345,19 @@ public class DocumentManagedBean {
         this.controlUser = controlUser;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
+    }
+
+    public String getFilterType() {
+        return filterType;
+    }
+
+    public void setFilterType(String filterType) {
+        this.filterType = filterType;
     }
 }

@@ -7,25 +7,26 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:t="http://xmlns.jcp.org/jsf/passthrough">
 
-    <ui:include src="/public/includes/HeadIncludes.xhtml"/>
-
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <h:commandLink value="Listas" class="nav-link" action="#{documentManagedBean.gotoLists()}"/>
-                </li>
-                <li class="nav-item">
-                    <h:commandLink value="Adicionar" class="nav-link" action="#{documentManagedBean.gotoAdds()}"/>
-                </li>
-                <li class="nav-item">
-                    <h:commandLink value="Lista de Usuarios" class="nav-link"/>
-                </li>
-            </ul>
+    <body>
+        <div class="navbarColor"/>
+        <div class="newDropdown">
+            <button class="newDropbtn">Adicionar</button>
+            <div class="newDropdown-content">
+                <h:commandLink value="Adicionar departamento" action="#{departmentManagedBean.gotoAddDepartment()}"/>
+                <h:commandLink value="Adicionar tipo de documento" action="#{documentManagedBean.gotoAddTypeList()}"/>
+            </div>
         </div>
-    </nav>
-
+        <div class="newDropdown">
+            <button class="newDropbtn">Listas</button>
+            <div class="newDropdown-content">
+                <h:commandLink value="Lista de usuários" action="#{accountManagedBean.gotoAdmUserList()}"/>
+                <h:commandLink value="Lista de departamentos" action="#{departmentManagedBean.gotoAdmDepartmentList()}"/>
+                <h:commandLink value="Lista de tipos de documentos" action="#{documentManagedBean.gotoAdmTypeList()}"/>
+            </div>
+        </div>
+        <div class="navbarBtnRight newDropdown" style="float: right">
+            <h:commandButton class="newDropbtn" value="Voltar" action="#{documentManagedBean.gotoDocumentsReceived()}"/>
+        </div>
+        <div class="navbarSpace"/>
+    </body>
 </html>

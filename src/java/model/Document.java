@@ -66,9 +66,6 @@ public class Document implements Serializable {
     @Basic(optional = false)
     @Column(name = "doc_extension")
     private String docExtension;
-    @Lob
-    @Column(name = "denial_explanation")
-    private byte[] denialExplanation;
     @JoinColumn(name = "type_id_type", referencedColumnName = "id_type")
     @ManyToOne(optional = false)
     private Type typeIdType;
@@ -153,14 +150,6 @@ public class Document implements Serializable {
 
     public void setDocExtension(String docExtension) {
         this.docExtension = docExtension;
-    }
-
-    public byte[] getDenialExplanation() {
-        return denialExplanation;
-    }
-
-    public void setDenialExplanation(byte[] denialExplanation) {
-        this.denialExplanation = denialExplanation;
     }
 
     public Type getTypeIdType() {

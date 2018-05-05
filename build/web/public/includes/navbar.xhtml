@@ -7,40 +7,30 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:t="http://xmlns.jcp.org/jsf/passthrough">
 
-    <div class="navbarStyle">
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <h:commandLink value="Enviar Documento" class="textNavbar" action="#{documentManagedBean.gotoSendDocument()}"/>
-                    </li>
-                    <li class="nav-item">
-                        <h:commandLink value="Doc. Recebidos" class="textNavbar" action="#{documentManagedBean.gotoDocumentsReceived()}"/>
-                    </li>
-                    <li class="nav-item">
-                        <h:commandLink value="Doc. Enviados" class="textNavbar" action="#{documentManagedBean.gotoDocumentsSent()}"/>
-                    </li>
-                    <div class="dropdown">
-                        <button class="dropbtn">Dropdown 
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-content">
-                            <a href="#">Link 1</a>
-                            <a href="#">Link 2</a>
-                            <a href="#">Link 3</a>
-                        </div>
-                    </div> 
-                </ul>
-                <ul class="navbar-nav mr-right">
-                    <li class="nav-item">
-                        <h:commandLink value="Sair" class="textNavbar" action="#{accountManagedBean.logout()}"/>
-                    </li>
-                </ul>
+    <body>
+        <div class="navbarColor"/>
+        <div class="newDropdown">
+            <button class="newDropbtn">Documentos</button>
+            <div class="newDropdown-content">
+                <h:commandLink value="Enviar documento" action="#{documentManagedBean.gotoSendDocument()}"/>
+                <h:commandLink value="Documentos recebidos" action="#{documentManagedBean.gotoDocumentsReceived()}"/>
+                <h:commandLink value="Documentos enviados" action="#{documentManagedBean.gotoDocumentsSent()}"/>
             </div>
-        </nav>
-    </div>
-
+        </div>
+        <div class="newDropdown">
+            <button class="newDropbtn">Listas</button>
+            <div class="newDropdown-content">
+                <h:commandLink value="Lista de usuários" action="#{accountManagedBean.gotoUserList()}"/>
+                <h:commandLink value="Lista de departamentos" action="#{departmentManagedBean.gotoDepartmentList()}"/>
+            </div>
+        </div>
+        <div class="navbarBtnRight newDropdown" style="float: right">
+            <button class="newDropbtn">Perfil</button>
+            <div class="newDropdown-content" style="right: 0">
+                <h:commandLink value="Editar perfil" action="#{accountManagedBean.gotoEditAccount()}"/>
+                <h:commandLink value="Sair" action="#{accountManagedBean.logout()}"/>
+            </div>
+        </div>
+        <div class="navbarSpace"/>
+    </body>
 </html>

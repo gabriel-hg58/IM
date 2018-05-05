@@ -9,7 +9,7 @@
     <ui:include src="/public/includes/HeadIncludes.xhtml"/>
 
     <f:metadata>
-        <f:viewAction action="#{accountManagedBean.loadDepartments()}"/>
+        <f:viewAction action="#{departmentManagedBean.loadDepartments()}"/>
     </f:metadata>
 
     <title>IM - Cadastro</title>
@@ -19,7 +19,7 @@
                 <div class="form-group spaceTop">
                     <h:outputLabel for="inputUser" class="col-sm-2 control-label userAddAdjustment" value="Usuario"/>
                     <div class="col-sm-10 center">
-                        <h:inputText value="#{accountManagedBean.actualUserAccount.user}" class="form-control" id="inputUser" required="true" t:placeholder="nome.sobrenome"/>
+                        <h:inputText value="#{accountManagedBean.actualUserAccount.user}" class="form-control" id="inputUser" required="true" t:placeholder="Ex: nome.sobrenome"/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -58,14 +58,14 @@
                 <div class="form-group space-bottom-1">
                     <h:outputLabel for="inputDepartment" class="col-sm-2 control-label userAddAdjustment" value="Departamento"/>
                     <h:selectOneMenu class="form-control large-pg-1 center" value="#{accountManagedBean.actualUserAccount.departmentIdDepartment}">
-                        <f:selectItems value="#{accountManagedBean.listOfDepartments}" var="dep" itemLabel="#{dep.name}" itemValue="#{dep}"/>
+                        <f:selectItems value="#{departmentManagedBean.listOfDepartments}" var="dep" itemLabel="#{dep.name}" itemValue="#{dep}"/>
                         <f:converter converterId="ConvertDepartments"/>
                     </h:selectOneMenu>
                 </div>
                 <div class="spaceTop">
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10 center">
-                            <h:commandButton type="submit" value="Cadastrar" onfocus="true" class="btn btn-default" action="#{accountManagedBean.saveAccount()}"/>
+                            <h:commandButton value="Cadastrar" onfocus="true" class="btn btn-lg mainBtn spaceBtnRight" action="#{accountManagedBean.saveAccount()}"/>
                         </div>
                     </div>
                 </div>

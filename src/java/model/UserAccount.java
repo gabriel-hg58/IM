@@ -36,10 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "UserAccount.findByName", query = "SELECT u FROM UserAccount u WHERE u.name = :name"),
     @NamedQuery(name = "UserAccount.findByPhone", query = "SELECT u FROM UserAccount u WHERE u.phone = :phone"),
     @NamedQuery(name = "UserAccount.findByEmail", query = "SELECT u FROM UserAccount u WHERE u.email = :email"),
-    @NamedQuery(name = "UserAccount.findByAdministrator", query = "SELECT u FROM UserAccount u WHERE u.administrator = :administrator"),
-    @NamedQuery(name = "UserAccount.findByManager", query = "SELECT u FROM UserAccount u WHERE u.manager = :manager"),
-    @NamedQuery(name = "UserAccount.findByNotification", query = "SELECT u FROM UserAccount u WHERE u.notification = :notification"),
-    @NamedQuery(name = "UserAccount.findByManagerNotification", query = "SELECT u FROM UserAccount u WHERE u.managerNotification = :managerNotification")})
+    @NamedQuery(name = "UserAccount.findByAdministrator", query = "SELECT u FROM UserAccount u WHERE u.administrator = :administrator")})
 public class UserAccount implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -65,13 +62,6 @@ public class UserAccount implements Serializable {
     @Basic(optional = false)
     @Column(name = "administrator")
     private boolean administrator;
-    @Basic(optional = false)
-    @Column(name = "manager")
-    private boolean manager;
-    @Column(name = "notification")
-    private Integer notification;
-    @Column(name = "manager_notification")
-    private Integer managerNotification;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userAccountUserCode")
     private List<Help> helpList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userSender")
@@ -89,7 +79,7 @@ public class UserAccount implements Serializable {
         this.user = user;
     }
 
-    public UserAccount(String user, int userCode, String password, String name, String phone, String email, boolean administrator, boolean manager) {
+    public UserAccount(String user, int userCode, String password, String name, String phone, String email, boolean administrator) {
         this.user = user;
         this.userCode = userCode;
         this.password = password;
@@ -97,7 +87,6 @@ public class UserAccount implements Serializable {
         this.phone = phone;
         this.email = email;
         this.administrator = administrator;
-        this.manager = manager;
     }
 
     public String getUser() {
@@ -154,30 +143,6 @@ public class UserAccount implements Serializable {
 
     public void setAdministrator(boolean administrator) {
         this.administrator = administrator;
-    }
-
-    public boolean getManager() {
-        return manager;
-    }
-
-    public void setManager(boolean manager) {
-        this.manager = manager;
-    }
-
-    public Integer getNotification() {
-        return notification;
-    }
-
-    public void setNotification(Integer notification) {
-        this.notification = notification;
-    }
-
-    public Integer getManagerNotification() {
-        return managerNotification;
-    }
-
-    public void setManagerNotification(Integer managerNotification) {
-        this.managerNotification = managerNotification;
     }
 
     @XmlTransient

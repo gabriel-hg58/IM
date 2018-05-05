@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p ="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough">
+
+    <title>IM - Tipos de documentos</title>
+    <ui:include src="/public/includes/HeadIncludes.xhtml"/>
+
+    <f:metadata>
+        <f:viewAction action="#{documentManagedBean.loadTypes()}"/>
+    </f:metadata>
+
+    <h:body>
+        <h:form>
+            <p:growl id="messages" showDetail="true" autoUpdate="true"/>
+            <div class="innerPage">
+                <div>
+                    <ui:include src="/public/includes/admNavbar.xhtml"/>
+                </div>
+                <div class="center spaceTop" style="font-family: Lobster">
+                    <h3>Lista de Departamentos</h3>
+                </div>
+                <div class="col-sm-10 center spaceTop">
+                    <h:inputText t:placeholder="Pesquisar" class="form-control" value="#{documentManagedBean.filterType}">
+                        <p:ajax update="tblTypes" event="keyup" listener="#{documentManagedBean.filterTypeByName()}"/>
+                    </h:inputText>
+                </div>
+                <div class="spaceTop table-stl-01">
+                    <h:dataTable id="tblTypes" styleClass="table table-bordered table-hover background-01" value="#{documentManagedBean.listOfTypes}" var="type">
+                        <h:column>
+                            <f:facet name="header">Documento</f:facet>
+                            <h:outputText value="#{type.name}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Ações</f:facet>
+                            <h:commandButton class="btn btn-sm mainBtn" value="Excluir" action="#{documentManagedBean.destryType(type.idType)}"/>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>

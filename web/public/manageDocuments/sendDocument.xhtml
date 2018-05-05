@@ -13,8 +13,8 @@
     <f:metadata>
         <f:viewAction action="#{documentManagedBean.clean()}"/>
         <f:viewAction action="#{documentManagedBean.loadTypes()}"/>
+        <f:viewAction action="#{documentManagedBean.loadUsersByDepartment()}"/>
         <f:viewAction action="#{documentManagedBean.loadDepartments()}"/>
-        <f:viewAction action="#{documentManagedBean.loadUsers()}"/>
     </f:metadata>
 
     <body>
@@ -24,7 +24,7 @@
                 <div>
                     <ui:include src="/public/includes/navbar.xhtml"/>
                 </div>
-                <div class="center" style="font-family: Lobster">
+                <div class="center spaceTop" style="font-family: Lobster">
                     <h3>Enviar Documento</h3>
                 </div>
                 <div class="form-group space-bottom-1 spaceTop space-left-01">
@@ -62,13 +62,13 @@
                         <h:form>
                             <h:outputText id="uploadedFile" value="#{documentManagedBean.fileName}"/>
                             <p:fileUpload fileUploadListener="#{documentManagedBean.handleFileUpload}" mode="advanced"
-                                          update="uploadedFile" auto="false" sizeLimit="10000000000000" allowTypes="/(\.|\/)(docx|doc|pdf)$/" 
+                                          update="uploadedFile" auto="false" sizeLimit="10000000000000" allowTypes="/(\.|\/)(pdf)$/" 
                                           uploadLabel="Confirmar" cancelLabel="Cancelar" label="Escolher"/>
                         </h:form>
                     </div>
                 </div>
                 <div class="spaceTop space-left-01">
-                    <p:commandButton class="btn btn-default" value="Enviar" action="#{documentManagedBean.saveDocument()}"/>
+                    <h:commandButton class="btn btn-lg mainBtn" value="Enviar" action="#{documentManagedBean.saveDocument()}" onfocus="true"/>
                 </div>
             </div>
         </h:form>

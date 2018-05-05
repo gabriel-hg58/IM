@@ -20,7 +20,7 @@
                 <div>
                     <ui:include src="/public/includes/navbar.xhtml"/>
                 </div>
-                <div class="center" style="font-family: Lobster">
+                <div class="center spaceTop" style="font-family: Lobster">
                     <h3>Lista de Departamentos</h3>
                 </div>
                 <div class="col-sm-10 center spaceTop">
@@ -29,7 +29,7 @@
                     </h:inputText>
                 </div>
                 <div class="table-stl-01">
-                    <h:dataTable id="tblDepartments" styleClass="table table-bordered table-hover background-01" value="#{departmentManagedBean.listOfDepartments}" var="dep">
+                    <h:dataTable id="tblDepartments" styleClass="table table-bordered table-hover background-01 center" value="#{departmentManagedBean.listOfDepartments}" var="dep">
                         <h:column>
                             <f:facet name="header">Departamento</f:facet>
                             <h:outputText value="#{dep.name}"/>
@@ -40,7 +40,7 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Quantidade de Usuarios</f:facet>
-                            <h:outputText value="#{dep}"/>
+                            <h:outputText value="#{dep.usersQtd()}"/>
                         </h:column>
                     </h:dataTable>
                 </div>

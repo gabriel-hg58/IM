@@ -30,8 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Help.findAll", query = "SELECT h FROM Help h"),
     @NamedQuery(name = "Help.findByIdHelp", query = "SELECT h FROM Help h WHERE h.idHelp = :idHelp"),
     @NamedQuery(name = "Help.findByTitleHelp", query = "SELECT h FROM Help h WHERE h.titleHelp = :titleHelp"),
-    @NamedQuery(name = "Help.findByDescription", query = "SELECT h FROM Help h WHERE h.description = :description"),
-    @NamedQuery(name = "Help.findByNotification", query = "SELECT h FROM Help h WHERE h.notification = :notification")})
+    @NamedQuery(name = "Help.findByDescription", query = "SELECT h FROM Help h WHERE h.description = :description")})
 public class Help implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,8 +45,6 @@ public class Help implements Serializable {
     @Basic(optional = false)
     @Column(name = "description")
     private String description;
-    @Column(name = "notification")
-    private Integer notification;
     @JoinColumn(name = "user_account_user_code", referencedColumnName = "user_code")
     @ManyToOne(optional = false)
     private UserAccount userAccountUserCode;
@@ -87,14 +84,6 @@ public class Help implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getNotification() {
-        return notification;
-    }
-
-    public void setNotification(Integer notification) {
-        this.notification = notification;
     }
 
     public UserAccount getUserAccountUserCode() {
