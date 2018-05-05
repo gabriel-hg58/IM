@@ -54,6 +54,10 @@ public class Department implements Serializable {
 
     public Department() {
     }
+    
+    public int usersQtd(){
+        return userAccountList.size();
+    }
 
     public Department(Integer idDepartment) {
         this.idDepartment = idDepartment;

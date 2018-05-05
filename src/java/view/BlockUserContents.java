@@ -31,6 +31,7 @@ public class BlockUserContents implements Filter {
             
             if (reqURI.contains("javax.faces.resource")
                     || reqURI.contains("/login.xhtml")
+                    || reqURI.contains("addAccount.xhtml")
                     || (ses != null && ses.getAttribute("userid") != null)
                     || reqURI.contains("/CSS")
                     || reqURI.contains("/JS")
