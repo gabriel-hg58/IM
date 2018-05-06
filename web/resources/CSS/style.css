@@ -1,5 +1,4 @@
 /* Navbar styles */
-
 .navbarColor{
     width: 930px;
     height: 56px;
@@ -61,7 +60,6 @@
 }
 
 /* button styles */
-
 .mainBtn {
     background-color: #868e96;
     color: white;
@@ -92,8 +90,80 @@
     margin-right: 2%;
 }
 
+/* Footer Styles */
+.innerFooter{
+    margin-top: 3%;
+    width: 930px;
+    height: 140px;
+    background-color: rgba(255,255,255,0.65);
+    background-attachment: fixed;
+    background-position: center center;
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 15px 0px rgba(0, 0, 0, 1.50);
+}
 
+.footerWidht{
+    width: 930px;
+    text-align: center;
+    margin: 0 auto;
+}
 
+.textFooter{
+    margin: 2%;
+}
+
+.footerLeftBtnSize{
+    margin-left: 2%;
+    width: 74px;
+    height: 74px;
+    position: absolute;
+}
+
+.footerRightBtnSize{
+    margin-right: 5%;
+    width: 74px;
+    height: 74px;
+    float: right;
+}
+
+.footerBtn{
+    position: relative;
+    transition: 0.3s;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    padding: 10%;
+}
+
+.footerBtn:hover{
+    padding: 0%;
+    transition: 0.3s;
+}
+
+.spaceTextTop{
+    padding: 3%;
+}
+
+.spaceTextBottom{
+    bottom: 6px;
+}
+
+.textPosition{
+    position: absolute;
+    left: 31%;
+    width: 500px;
+}
+
+.textSpaceLeft{
+    padding-left: 11%;
+}
+
+/* Insert Styles */
+.insertHelp{
+    width: 745px;
+    height: 300px;
+}
 
 
 
@@ -138,12 +208,13 @@ body{
     background-size: cover;
     background-attachment: fixed;
     margin-top: 0%;
-    margin-bottom: 0%
+    margin-bottom: 0%;
+    position: relative;
 }
 
 .innerPage{
     width: 930px;
-    padding-bottom: 2%;
+    padding-bottom: 1%;
     background-color: rgba(255,255,255,0.65);
     background-attachment: fixed;
     background-position: center center;

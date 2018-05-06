@@ -30,6 +30,10 @@ public class DepartmentManagedBean {
     public String gotoDepartmentList() {
         return "/public/manageDepartments/departmentList.xhtml?faces-redirect=true";
     }
+    
+    public String gotoSertanejaWebsite(){
+        return "http://www.sertaneja.pr.gov.br/";
+    }
 
     //  ---------------------  Public Metods  ---------------------
     public void loadDepartments() {

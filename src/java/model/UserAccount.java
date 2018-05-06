@@ -62,7 +62,7 @@ public class UserAccount implements Serializable {
     @Basic(optional = false)
     @Column(name = "administrator")
     private boolean administrator;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userAccountUserCode")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userAccountUser")
     private List<Help> helpList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userSender")
     private List<Document> documentList;

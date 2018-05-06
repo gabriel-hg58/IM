@@ -55,7 +55,6 @@ public class DocumentManagedBean {
 
 //  --------------------  Redirect Metods  --------------------    
     public String gotoSendDocument() {
-        actualDocument.setNumber(0);
         return "/public/manageDocuments/sendDocument.xhtml?faces-redirect=true";
     }
 

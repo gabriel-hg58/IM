@@ -80,12 +80,12 @@ public class UserAccountJpaController implements Serializable {
                 departmentIdDepartment = em.merge(departmentIdDepartment);
             }
             for (Help helpListHelp : userAccount.getHelpList()) {
-                UserAccount oldUserAccountUserCodeOfHelpListHelp = helpListHelp.getUserAccountUserCode();
-                helpListHelp.setUserAccountUserCode(userAccount);
+                UserAccount oldUserAccountUserOfHelpListHelp = helpListHelp.getUserAccountUser();
+                helpListHelp.setUserAccountUser(userAccount);
                 helpListHelp = em.merge(helpListHelp);
-                if (oldUserAccountUserCodeOfHelpListHelp != null) {
-                    oldUserAccountUserCodeOfHelpListHelp.getHelpList().remove(helpListHelp);
-                    oldUserAccountUserCodeOfHelpListHelp = em.merge(oldUserAccountUserCodeOfHelpListHelp);
+                if (oldUserAccountUserOfHelpListHelp != null) {
+                    oldUserAccountUserOfHelpListHelp.getHelpList().remove(helpListHelp);
+                    oldUserAccountUserOfHelpListHelp = em.merge(oldUserAccountUserOfHelpListHelp);
                 }
             }
             for (Document documentListDocument : userAccount.getDocumentList()) {
@@ -139,7 +139,7 @@ public class UserAccountJpaController implements Serializable {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
                     }
-                    illegalOrphanMessages.add("You must retain Help " + helpListOldHelp + " since its userAccountUserCode field is not nullable.");
+                    illegalOrphanMessages.add("You must retain Help " + helpListOldHelp + " since its userAccountUser field is not nullable.");
                 }
             }
             for (Document documentListOldDocument : documentListOld) {
@@ -197,12 +197,12 @@ public class UserAccountJpaController implements Serializable {
             }
             for (Help helpListNewHelp : helpListNew) {
                 if (!helpListOld.contains(helpListNewHelp)) {
-                    UserAccount oldUserAccountUserCodeOfHelpListNewHelp = helpListNewHelp.getUserAccountUserCode();
-                    helpListNewHelp.setUserAccountUserCode(userAccount);
+                    UserAccount oldUserAccountUserOfHelpListNewHelp = helpListNewHelp.getUserAccountUser();
+                    helpListNewHelp.setUserAccountUser(userAccount);
                     helpListNewHelp = em.merge(helpListNewHelp);
-                    if (oldUserAccountUserCodeOfHelpListNewHelp != null && !oldUserAccountUserCodeOfHelpListNewHelp.equals(userAccount)) {
-                        oldUserAccountUserCodeOfHelpListNewHelp.getHelpList().remove(helpListNewHelp);
-                        oldUserAccountUserCodeOfHelpListNewHelp = em.merge(oldUserAccountUserCodeOfHelpListNewHelp);
+                    if (oldUserAccountUserOfHelpListNewHelp != null && !oldUserAccountUserOfHelpListNewHelp.equals(userAccount)) {
+                        oldUserAccountUserOfHelpListNewHelp.getHelpList().remove(helpListNewHelp);
+                        oldUserAccountUserOfHelpListNewHelp = em.merge(oldUserAccountUserOfHelpListNewHelp);
                     }
                 }
             }
@@ -263,7 +263,7 @@ public class UserAccountJpaController implements Serializable {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
-                illegalOrphanMessages.add("This UserAccount (" + userAccount + ") cannot be destroyed since the Help " + helpListOrphanCheckHelp + " in its helpList field has a non-nullable userAccountUserCode field.");
+                illegalOrphanMessages.add("This UserAccount (" + userAccount + ") cannot be destroyed since the Help " + helpListOrphanCheckHelp + " in its helpList field has a non-nullable userAccountUser field.");
             }
             List<Document> documentListOrphanCheck = userAccount.getDocumentList();
             for (Document documentListOrphanCheckDocument : documentListOrphanCheck) {

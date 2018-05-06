@@ -37,15 +37,15 @@ public class HelpJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            UserAccount userAccountUserCode = help.getUserAccountUserCode();
-            if (userAccountUserCode != null) {
-                userAccountUserCode = em.getReference(userAccountUserCode.getClass(), userAccountUserCode.getUser());
-                help.setUserAccountUserCode(userAccountUserCode);
+            UserAccount userAccountUser = help.getUserAccountUser();
+            if (userAccountUser != null) {
+                userAccountUser = em.getReference(userAccountUser.getClass(), userAccountUser.getUser());
+                help.setUserAccountUser(userAccountUser);
             }
             em.persist(help);
-            if (userAccountUserCode != null) {
-                userAccountUserCode.getHelpList().add(help);
-                userAccountUserCode = em.merge(userAccountUserCode);
+            if (userAccountUser != null) {
+                userAccountUser.getHelpList().add(help);
+                userAccountUser = em.merge(userAccountUser);
             }
             em.getTransaction().commit();
         } finally {
@@ -61,20 +61,20 @@ public class HelpJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Help persistentHelp = em.find(Help.class, help.getIdHelp());
-            UserAccount userAccountUserCodeOld = persistentHelp.getUserAccountUserCode();
-            UserAccount userAccountUserCodeNew = help.getUserAccountUserCode();
-            if (userAccountUserCodeNew != null) {
-                userAccountUserCodeNew = em.getReference(userAccountUserCodeNew.getClass(), userAccountUserCodeNew.getUser());
-                help.setUserAccountUserCode(userAccountUserCodeNew);
+            UserAccount userAccountUserOld = persistentHelp.getUserAccountUser();
+            UserAccount userAccountUserNew = help.getUserAccountUser();
+            if (userAccountUserNew != null) {
+                userAccountUserNew = em.getReference(userAccountUserNew.getClass(), userAccountUserNew.getUser());
+                help.setUserAccountUser(userAccountUserNew);
             }
             help = em.merge(help);
-            if (userAccountUserCodeOld != null && !userAccountUserCodeOld.equals(userAccountUserCodeNew)) {
-                userAccountUserCodeOld.getHelpList().remove(help);
-                userAccountUserCodeOld = em.merge(userAccountUserCodeOld);
+            if (userAccountUserOld != null && !userAccountUserOld.equals(userAccountUserNew)) {
+                userAccountUserOld.getHelpList().remove(help);
+                userAccountUserOld = em.merge(userAccountUserOld);
             }
-            if (userAccountUserCodeNew != null && !userAccountUserCodeNew.equals(userAccountUserCodeOld)) {
-                userAccountUserCodeNew.getHelpList().add(help);
-                userAccountUserCodeNew = em.merge(userAccountUserCodeNew);
+            if (userAccountUserNew != null && !userAccountUserNew.equals(userAccountUserOld)) {
+                userAccountUserNew.getHelpList().add(help);
+                userAccountUserNew = em.merge(userAccountUserNew);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -105,10 +105,10 @@ public class HelpJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The help with id " + id + " no longer exists.", enfe);
             }
-            UserAccount userAccountUserCode = help.getUserAccountUserCode();
-            if (userAccountUserCode != null) {
-                userAccountUserCode.getHelpList().remove(help);
-                userAccountUserCode = em.merge(userAccountUserCode);
+            UserAccount userAccountUser = help.getUserAccountUser();
+            if (userAccountUser != null) {
+                userAccountUser.getHelpList().remove(help);
+                userAccountUser = em.merge(userAccountUser);
             }
             em.remove(help);
             em.getTransaction().commit();

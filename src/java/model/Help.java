@@ -45,9 +45,9 @@ public class Help implements Serializable {
     @Basic(optional = false)
     @Column(name = "description")
     private String description;
-    @JoinColumn(name = "user_account_user_code", referencedColumnName = "user_code")
+    @JoinColumn(name = "user_account_user", referencedColumnName = "user")
     @ManyToOne(optional = false)
-    private UserAccount userAccountUserCode;
+    private UserAccount userAccountUser;
 
     public Help() {
     }
@@ -86,12 +86,12 @@ public class Help implements Serializable {
         this.description = description;
     }
 
-    public UserAccount getUserAccountUserCode() {
-        return userAccountUserCode;
+    public UserAccount getUserAccountUser() {
+        return userAccountUser;
     }
 
-    public void setUserAccountUserCode(UserAccount userAccountUserCode) {
-        this.userAccountUserCode = userAccountUserCode;
+    public void setUserAccountUser(UserAccount userAccountUser) {
+        this.userAccountUser = userAccountUser;
     }
 
     @Override

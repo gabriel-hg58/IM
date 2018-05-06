@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p ="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:t="http://xmlns.jcp.org/jsf/passthrough">
+
+    <h:form>
+        <div class="footerWidht">
+            <div class="innerFooter" style="bottom: 0px;">
+                <div class="footerRightBtnSize">
+                    <h:commandLink class="btn-action" action="#{helpManagedBean.gotoHelp()}">
+                        <h:graphicImage class="footerBtn" library="images" name="help_icon.png" style="top: 25%"/>
+                    </h:commandLink>
+                </div>
+                <div class="footerLeftBtnSize">
+                    <h:outputLink class="btn-action" target="_blank" value="http://sertaneja.pr.gov.br">
+                        <h:graphicImage class="footerBtn" library="images" name="sertaneja_icon.png" style="top: 25%"/>
+                    </h:outputLink>
+                </div>
+                <div class="center">
+                    <div class="spaceTextTop center">
+                        <div>
+                            <h:outputText class="textSpaceLeft" value="Site de produção independente"/>
+                        </div>
+                    </div>
+                    <div>
+                        <h:outputText class="center" value="Prefeitura Municipal de Sertaneja - PR"/>
+                        <div>
+                            <h:outputText value="Rua Nossa Senhora do Rocio - Nº 233 - Centro"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </h:form>
+</html>
