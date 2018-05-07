@@ -1,11 +1,19 @@
 package view;
 
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import controller.DepartmentJpaController;
 import controller.DocumentJpaController;
 import controller.TypeJpaController;
 import controller.UserAccountJpaController;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -170,7 +178,7 @@ public class DocumentManagedBean {
     public StreamedContent downloadDocument(int id) {
         byte[] byteDoc = controlDocument.findDocument(id).getDocument();
         InputStream input = new ByteArrayInputStream(byteDoc);
-
+        
         file = new DefaultStreamedContent(input, "document/pdf", generateDocName(id));
         return file;
     }
