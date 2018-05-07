@@ -227,6 +227,8 @@ public class DocumentManagedBean {
 
     //  ----------------------  Auxiliary Metods  ---------------------
     public void clean() {
+        listOfDepartments.clear();
+        listOfUsers.clear();
         fileName = "";
         number = null;
     }

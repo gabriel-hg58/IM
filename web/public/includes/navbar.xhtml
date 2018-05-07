@@ -24,6 +24,13 @@
                 <h:commandLink value="Lista de departamentos" action="#{departmentManagedBean.gotoDepartmentList()}"/>
             </div>
         </div>
+        <c:choose>
+            <c:when test="#{accountManagedBean.administratorLogged()}">
+                <div class="navbarBtn newDropdown">
+                    <h:commandButton class="newDropbtn" value="Area Administrativa" action="#{accountManagedBean.gotoAdmUserList()}"/>
+                </div>
+            </c:when>
+        </c:choose>
         <div class="navbarBtnRight newDropdown" style="float: right">
             <button class="newDropbtn">Perfil</button>
             <div class="newDropdown-content" style="right: 0">

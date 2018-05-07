@@ -10,7 +10,9 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpSession;
+import model.Department;
 import model.UserAccount;
+import utils.SendMail;
 
 @ManagedBean
 @SessionScoped
@@ -26,11 +28,16 @@ public class AccountManagedBean {
     //AdmVars
     boolean typeVisibility = false;
     //Auxiliary
-    UserAccount actualUserAccount = new UserAccount();
-    String password;
-    String confirmPassword;
-    String actualPassword;
-    DocumentManagedBean docManaged = new DocumentManagedBean();
+    private UserAccount actualUserAccount = new UserAccount();
+    private Department actualDepartment = new Department();
+    private String mail;
+    private String title;
+    private String msg;
+    private String password;
+    private String confirmPassword;
+    private String actualPassword;
+    private DocumentManagedBean docManaged = new DocumentManagedBean();
+    private SendMail send = new SendMail();
 
     public AccountManagedBean() {
     }
@@ -172,6 +179,22 @@ public class AccountManagedBean {
         return "/private/manageAccounts/userList.xhtml?faces-redirect=true";
     }
     
+    public String gotoSendMailToUser(){
+        return "/private/manageHelp/sendMail.xhtml?faces-redirect=true";
+    }
+    
+    public String gotoSendMailToDepartment(){
+        return "/private/manageHelp/sendMailDepartment.xhtml?faces-redirect=true";
+    }
+    
+    public boolean administratorLogged(){
+        if(ManageSessions.getAdministrator() != null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
     public String destroyUser(String user){
         try {
             ControlUserAccount.destroy(user);
@@ -203,6 +226,21 @@ public class AccountManagedBean {
         }
     }
     
+    public String mailAuxiliary(){
+        if(actualUserAccount.getEmail() == null){
+            send.sendMailToUser(actualDepartment.getEmail(), title, msg);
+        } else {
+            send.sendMailToUser(actualUserAccount.getEmail(), title, msg);
+        }
+        return gotoAdmUserList();
+    }
+    
+    public void cleanMail(){
+        actualUserAccount = new UserAccount();
+        actualDepartment = new Department();
+        title = new String();
+        msg = new String();
+    }
     //  ---------------------  Getters and Setters  --------------------- 
     public UserAccount getActualUserAccount() {
         return actualUserAccount;
@@ -263,5 +301,37 @@ public class AccountManagedBean {
 
     public void setActualPassword(String actualPassword) {
         this.actualPassword = actualPassword;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
+    public Department getActualDepartment() {
+        return actualDepartment;
+    }
+
+    public void setActualDepartment(Department actualDepartment) {
+        this.actualDepartment = actualDepartment;
     }
 }

@@ -42,6 +42,14 @@ public class ManageSessions{
         }
     }
     
+    public static String getAdministrator(){
+        HttpSession session = getSession();
+        if(session != null && session.getAttribute("administrator") != null) {
+            return session.getAttribute("administrator").toString();
+        }
+        return null;
+    }
+    
     public static String getLoggedAdmin(){
         HttpSession session = getSession();
         if (session != null) {

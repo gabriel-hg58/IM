@@ -8,6 +8,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import model.Help;
 import model.UserAccount;
+import utils.SendMail;
 
 @ManagedBean
 @SessionScoped
@@ -19,6 +20,7 @@ public class HelpManagedBean {
     //Auxiliary
     Help actualHelp = new Help();
     UserAccount actualUser = new UserAccount();
+    SendMail send = new SendMail();
     
     public HelpManagedBean() {
     }
@@ -37,6 +39,7 @@ public class HelpManagedBean {
         actualHelp.setUserAccountUser(actualUser);
         try {
             controlHelp.create(actualHelp);
+            send.sendMailToSystem(actualHelp.getIdHelp(), actualUser.getUser());
             return "/public/manageDocuments/documentsReceived.xhtml?faces-redirect=true";
         } catch (Exception e) {
             FacesMessage message = new FacesMessage("Erro!", "Não foi enviar sua requisição.");

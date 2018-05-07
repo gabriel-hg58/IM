@@ -24,6 +24,13 @@
                 <h:commandLink value="Lista de tipos de documentos" action="#{documentManagedBean.gotoAdmTypeList()}"/>
             </div>
         </div>
+        <div class="newDropdown">
+            <button class="newDropbtn">Enviar Email</button>
+            <div class="newDropdown-content">
+                <h:commandLink value="Enviar email para usuário" action="#{accountManagedBean.gotoSendMailToUser()}"/>
+                <h:commandLink value="Enviar email para departamento" action="#{accountManagedBean.gotoSendMailToDepartment()}"/>
+            </div>
+        </div>
         <div class="navbarBtnRight newDropdown" style="float: right">
             <h:commandButton class="newDropbtn" value="Voltar" action="#{documentManagedBean.gotoDocumentsReceived()}"/>
         </div>
