@@ -32,11 +32,12 @@
             </c:when>
         </c:choose>
         <div class="navbarBtnRight newDropdown" style="float: right">
-            <button class="newDropbtn">Perfil</button>
-            <div class="newDropdown-content" style="right: 0">
-                <h:commandLink value="Editar perfil" action="#{accountManagedBean.gotoEditAccount()}"/>
-                <h:commandLink value="Sair" action="#{accountManagedBean.logout()}"/>
-            </div>
+            <h:commandButton value="#{accountManagedBean.userFirsName()}" class="newDropbtn">
+                <div class="newDropdown-content" style="right: 0">
+                    <h:commandLink value="Editar perfil" action="#{accountManagedBean.gotoEditAccount()}"/>
+                    <h:commandLink value="Sair" action="#{accountManagedBean.logout()}"/>
+                </div>
+            </h:commandButton>
         </div>
         <div class="navbarSpace"/>
     </body>

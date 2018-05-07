@@ -23,8 +23,9 @@
                 <div class="center spaceTop" style="font-family: Lobster">
                     <h3>Documentos Recebidos</h3>
                 </div>
+                <p:poll interval="5" listener="#{documentManagedBean.findDocumentReceived()}" update="docReceived"/>
                 <div class="spaceTop table-stl-01">
-                    <h:dataTable styleClass="table table-bordered table-hover background-01" value="#{documentManagedBean.listOfDocumentsReceived}" var="doc">
+                    <h:dataTable id="docReceived" styleClass="table table-bordered table-hover background-01" value="#{documentManagedBean.listOfDocumentsReceived}" var="doc">
                         <h:column>
                             <f:facet name="header">Numero/Ano</f:facet>
                             <h:outputText value="#{doc.number}"/>
@@ -51,13 +52,12 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Ação</f:facet>
-                            <h:commandLink class="btn-action">
+                            <h:commandLink class="btn-action" action="#{documentManagedBean.viewDocument(doc.idDocument)}" target="_blank">
                                 <h:graphicImage class="resizedActionBtn" library="images" name="search_icon.png"/>
-                                <h:commandLink target="_blank" action="#{documentManagedBean.openDocument(doc.idDocument)}"/>
                             </h:commandLink>
                             <h:commandLink class="btn-action">
                                 <h:graphicImage class="resizedActionBtn" library="images" name="download_icon.png"/>
-                                <p:fileDownload value="#{documentManagedBean.downloadDocument(doc.idDocument)}" />
+                                <p:fileDownload value="#{documentManagedBean.downloadDocument(doc.idDocument)}"/>
                             </h:commandLink>
                         </h:column>
                     </h:dataTable>

@@ -64,6 +64,16 @@ public class AccountManagedBean {
     }
 
     //  ---------------------  Public Metods  ---------------------    
+    
+    public String userFirsName(){
+        String name;
+        name = ControlUserAccount.findUserAccount(ManageSessions.getUserId()).getName();
+        
+        int pos = name.indexOf(" ");
+        name = name.substring(0, pos);
+        System.out.println(name);
+        return name;
+    }
     public void loadUsers() {
         listOfUsers = new ArrayList(ControlUserAccount.findUserAccountEntities());
     }
@@ -109,6 +119,7 @@ public class AccountManagedBean {
             session.setAttribute("username", actualUserAccount.getName());
             session.setAttribute("userid", actualUserAccount.getUser());
             session.setAttribute("userCode", actualUserAccount.getUserCode());
+            userFirsName();
         } else {
             return "#";
         }

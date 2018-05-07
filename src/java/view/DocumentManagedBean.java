@@ -1,24 +1,17 @@
 package view;
 
-import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream;
 import controller.DepartmentJpaController;
 import controller.DocumentJpaController;
 import controller.TypeJpaController;
 import controller.UserAccountJpaController;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -57,7 +50,7 @@ public class DocumentManagedBean {
     private String filterType;
     private Integer number;
     StreamedContent file;
-
+    
     public DocumentManagedBean() {
     }
 
@@ -72,6 +65,10 @@ public class DocumentManagedBean {
 
     public String gotoDocumentsSent() {
         return "/public/manageDocuments/documentsSent.xhtml?faces-redirect=true";
+    }
+    
+    public String gotoViewDocument(){
+        return "/public/manageDocuments/viewDocument.xhtml?faces-redirect=true";
     }
 
 //  ---------------------  Public Metods  ---------------------
@@ -118,7 +115,7 @@ public class DocumentManagedBean {
 
             String year = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 
-            Calendar cal = new GregorianCalendar();
+            Calendar cal = new GregorianCalendar(TimeZone.getTimeZone("GMT-03:00"));
 
             actualDocument.setNumber(number);
             actualDocument.setPublicationDate(cal.getTime());
@@ -190,7 +187,6 @@ public class DocumentManagedBean {
         extension = extension.substring(pos, extension.length());
 
         actualDocument.setDocExtension(extension);
-        System.out.println("extensão do documento: " + extension);
     }
     
     public void filterTypeByName() {
@@ -200,6 +196,14 @@ public class DocumentManagedBean {
                 .setParameter("filterType", "%" + filterType + "%")
                 .getResultList();
         listOfTypes = new ArrayList<>(type);
+    }
+    
+    public String viewDocument(int id) {
+        byte[] byteDoc = controlDocument.findDocument(id).getDocument();
+        InputStream input = new ByteArrayInputStream(byteDoc);
+        
+        file = new DefaultStreamedContent(input, "application/pdf", generateDocName(id));
+        return gotoViewDocument();
     }
 
     //  --------------------  Administrator Metods  --------------------
@@ -368,5 +372,13 @@ public class DocumentManagedBean {
 
     public void setFilterType(String filterType) {
         this.filterType = filterType;
+    }
+
+    public StreamedContent getFile() {
+        return file;
+    }
+
+    public void setFile(StreamedContent file) {
+        this.file = file;
     }
 }
