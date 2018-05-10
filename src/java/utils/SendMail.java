@@ -22,8 +22,8 @@ public class SendMail {
     //Auxiliary
     Help actualHelp = new Help();
     UserAccount actualUser = new UserAccount();
-    private final String systemMail = "integracaomunicipal@gmail.com";
-    private final String systemPassword = "controlemunicipal2018";
+    private final String systemMail = "example@gmail.com";
+    private final String systemPassword = "xxxxxxxxxx";
 
     public void sendMailToSystem(int idHelp, String user) {
         actualHelp = controlHelp.findHelp(idHelp);
